@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+}
+
+canvas {
+  border: 1px solid #000000;
+  margin: 10% 10%;
+  margin-bottom: 0;
+}
+
+h3 {
+  text-align: center;
+}
+
+.indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: green;
+}
+
+.control {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  align-items: center;
+  margin-left: 10%;
+}
