@@ -5,7 +5,14 @@ const isHunger = document.querySelector('#isHunger');
 const isSick = document.querySelector('#isSick');
 const isHungerButton = document.querySelector('#isHungerButton');
 
+const activeImage = document.querySelector('#active');
+const sleepImage = document.querySelector('#sleep');
+const sickImage = document.querySelector('#sick');
+const poopImage = document.querySelector('#poop');
+
 ctx.fillStyle = 'green';
+
+let image = activeImage;
 
 class Person {
   constructor(name) {
@@ -18,24 +25,25 @@ class Person {
     this.lastFeed = new Date();
     this.poops = [];
     this.sick = false;
+    this.imageSize = 40;
   }
 
   moveUp() {
-    if (this.y - 20 > 0 && !this.sleep) {
+    if (this.y - this.imageSize > 0 && !this.sleep) {
       this.y -= 1;
       this.render();
     }
   }
 
   moveDown() {
-    if (this.y + 20 < canvas.height && !this.sleep) {
+    if (this.y + this.imageSize < canvas.height && !this.sleep) {
       this.y += 1;
       this.render();
     }
   }
 
   moveRight() {
-    if (this.x + 20 < canvas.width && !this.sleep) {
+    if (this.x + this.imageSize < canvas.width && !this.sleep) {
       this.x += 1;
       this.render();
     }
@@ -75,7 +83,6 @@ class Person {
   feed() {
     this.isHunger = false;
     this.lastFeed = new Date();
-    // isHunger.textContent = '0';
     isHunger.style.backgroundColor = 'green';
     console.log('Feeded');
 
@@ -112,16 +119,13 @@ class Person {
   }
 
   render() {
-    ctx.fillStyle = this.sick ? 'red' : this.sleep ? '#ddd' : 'green';
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillRect(this.x, this.y, 20, 20);
+    image = this.sick ? sickImage : this.sleep ? sleepImage : activeImage;
 
+    ctx.drawImage(image, this.x, this.y, this.imageSize, this.imageSize);
     this.poops.map(poop => {
-      ctx.fillStyle = 'brown';
-      ctx.fillRect(poop.x, poop.y, 8, 8);
+      ctx.drawImage(poopImage, poop.x, poop.y, 14, 14);
     });
-    ctx.fillStyle = 'green';
-    isHungerButton.disabled = this.sleep;
   }
 }
 
