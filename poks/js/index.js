@@ -3,6 +3,7 @@ const ctx = canvas.getContext('2d');
 
 const isHunger = document.querySelector('#isHunger');
 const isSick = document.querySelector('#isSick');
+const isHungerButton = document.querySelector('#isHungerButton');
 
 ctx.fillStyle = 'green';
 
@@ -64,7 +65,7 @@ class Person {
     // change / 1000 to / 1000 /60/60
     let diff = (Date.parse(now) - Date.parse(this.lastFeed)) / 1000;
     //change 20 to 3
-    if (diff >= 20) {
+    if (diff >= 20 && !this.sleep) {
       this.isHunger = true;
       isHunger.style.backgroundColor = 'red';
     }
@@ -120,6 +121,7 @@ class Person {
       ctx.fillRect(poop.x, poop.y, 8, 8);
     });
     ctx.fillStyle = 'green';
+    isHungerButton.disabled = this.sleep;
   }
 }
 
