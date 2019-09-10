@@ -126,6 +126,8 @@ class Person {
     this.poops.map(poop => {
       ctx.drawImage(poopImage, poop.x, poop.y, 14, 14);
     });
+
+    isHungerButton.disabled = this.sleep;
   }
 }
 
