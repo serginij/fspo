@@ -8,7 +8,7 @@ My own micro os ( asm + c loader )
 
 Micro projects with classes ( c++ )
 
-### Posk
+### Poks
 
 Web programm modules ( js + php )
 
