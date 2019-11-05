@@ -18,7 +18,7 @@ jmp MyCode : 0xB000
 ret
 
 readFont:
-	mov ax, 0x0204
+	mov ax, 0x0210
 	mov dx, 0x0080
 	mov ch, 00
 	mov cl, 18
