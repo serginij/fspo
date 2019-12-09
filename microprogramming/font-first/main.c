@@ -327,7 +327,7 @@ void drawChar (char ch, int x, int y, int size) {
 	if( (int)ch == 71) positionChar = 6;
 	if( (int)ch == 72) positionChar = 7;
 	if( (int)ch == 73) positionChar = 8;
-	if( (int)ch == 74) positionChar = 8;
+	if( (int)ch == 74) positionChar = 9;
 	if( (int)ch == 75) positionChar = 10;
 	if( (int)ch == 76) positionChar = 11; 
 	if( (int)ch == 77) positionChar = 12; 
