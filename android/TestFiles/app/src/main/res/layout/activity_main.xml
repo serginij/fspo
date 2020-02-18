@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="20dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:text="Текстовый редактор"
+                android:gravity="center_horizontal" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/text"
+                android:textSize="15dp"
+                android:inputType="textMultiLine"
+                android:hint="Текст"
+                />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Поиск"
+                android:gravity="center_horizontal"
+                android:textSize="20dp"
+                android:paddingTop="20dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/findtext"
+                android:textSize="20dp"
+                android:inputType="text"
+                android:hint="Строка"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Замена"
+                android:gravity="center_horizontal"
+                android:textSize="20dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/replacetext"
+                android:textSize="20dp"
+                android:inputType="text"
+                android:hint="Строка"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/find"
+                android:textSize="20dp"
+                android:text="Поиск"
+                android:textAllCaps="false" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/replace"
+                android:textSize="20dp"
+                android:text="Замена"
+                android:textAllCaps="false" />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Сохранение"
+                android:gravity="center_horizontal"
+                android:textSize="20dp"
+                android:paddingTop="20dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/savepathfile"
+                android:textSize="20dp"
+                android:inputType="text"
+                android:hint="Имя файла"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/save"
+                android:textSize="20dp"
+                android:text="Сохранить"
+                android:textAllCaps="false" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/saveSelected"
+                android:textSize="20dp"
+                android:text="Сохранить выделенное"
+                android:textAllCaps="false" />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Загрузка"
+                android:gravity="center_horizontal"
+                android:textSize="20dp"
+                android:paddingTop="20dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/openfilename"
+                android:textSize="20dp"
+                android:inputType="text"
+                android:hint="Имя файла"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/open"
+                android:textSize="20dp"
+                android:text="Загрузить"
+                android:textAllCaps="false" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
