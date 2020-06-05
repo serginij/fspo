@@ -55,7 +55,12 @@ public class EditLicence extends JFrame{
                             !Helpers.checkDate(expiredDate) ||
                             !Helpers.checkLengthStrict(number, 8)
                     ) {
-                        JOptionPane.showMessageDialog(null, "Данные введены в некорректном формате", "Внимание", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null,
+                                "Данные введены в некорректном формате.\n" +
+                                        "Формат даты - гггг-мм-дд\n" +
+                                        "Поле номера ВУ = 8 символов, цифры и латинские буквы\n" +
+                                        "Имя, Фамилия - обязательные поля, кирилица\n" +
+                                        "Отчество - необязательное к заполнению поле, кирилица", "Внимание", JOptionPane.WARNING_MESSAGE);
                     } else {
                         try {
                             String query = "insert into driver_licence (name, surname, father_name, number, birthday, expired_date) values ('" + name +
@@ -152,7 +157,12 @@ public class EditLicence extends JFrame{
                                 !Helpers.checkDate(expiredDate) ||
                                 !Helpers.checkLengthStrict(number, 8)
                         ) {
-                            JOptionPane.showMessageDialog(null, "Данные введены в некорректном формате", "Внимание", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(null,
+                                    "Данные введены в некорректном формате.\n" +
+                                            "Формат даты - гггг-мм-дд\n" +
+                                            "Поле номера ВУ = 8 символов, цифры и латинские буквы\n" +
+                                            "Имя, Фамилия - обязательные поля, кирилица\n" +
+                                            "Отчество - необязательное к заполнению поле, кирилица", "Внимание", JOptionPane.WARNING_MESSAGE);
                         } else {
                             try {
                                 // Строка с запросом на редактирование
