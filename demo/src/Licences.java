@@ -1,11 +1,9 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.transform.Result;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 /*  Разработал: Сергей Котлицкий
     github: https://github.com/serginij
@@ -23,7 +21,6 @@ public class Licences extends JFrame{
     private JPanel main;
     protected DefaultTableModel tableModel;
     protected DefaultComboBoxModel comboModel;
-    protected ArrayList<Licence> licences;
 
     Licences() {
         setContentPane(main);
@@ -36,7 +33,6 @@ public class Licences extends JFrame{
         // Инициализируем модели и массив данных
         comboModel = new DefaultComboBoxModel();
         tableModel = new DefaultTableModel();
-        licences = new ArrayList<>();
 
         // Связываем comboBox с моделью
         comboBox.setModel(comboModel);
@@ -44,9 +40,11 @@ public class Licences extends JFrame{
 
         // Связываем таблицу с моделью
         table.setModel(tableModel);
+        // Убираем возможность редактирования таблицы
         table.setDefaultEditor(Object.class, null);
 
         // Добавляем в талицу столбцы
+        tableModel.addColumn("ID");
         tableModel.addColumn("ФИО");
         tableModel.addColumn("№ВУ");
         tableModel.addColumn("Годен до");
@@ -54,12 +52,11 @@ public class Licences extends JFrame{
         // Получаем данные о ВУ
         getDriverLicences("select * from driver_licence");
 
-
         createBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 // Открываем окно добавления ВУ
-                EditLicence edit = new EditLicence(licences, tableModel);
+                EditLicence edit = new EditLicence(tableModel);
                 edit.pack();
                 edit.setVisible(true);
             }
@@ -73,7 +70,7 @@ public class Licences extends JFrame{
                 if(idx == -1) JOptionPane.showMessageDialog(null , "Необходимо выбрать строку для редактирвоания", "Внимание", JOptionPane.INFORMATION_MESSAGE);
                     else {
                         // Открываем окно редаткирования ВУ
-                        EditLicence edit = new EditLicence(licences, tableModel, idx);
+                        EditLicence edit = new EditLicence(tableModel, idx);
                         edit.pack();
                         edit.setVisible(true);
                 }
@@ -108,11 +105,11 @@ public class Licences extends JFrame{
                     if(result == 0) {
                         try {
                             // Создаем запрос на удаление
-                            String query = "delete from driver_licence where id = " + licences.get(idx).getId();
+                            String query = "delete from driver_licence where id = " + tableModel.getValueAt(idx, 0);
+
                             boolean res = DB.delete(query);
                             // Если успешно, то удаляем данные из модели и массива с данными
                             if(res) {
-                                licences.remove(idx);
                                 tableModel.removeRow(idx);
                                 JOptionPane.showMessageDialog(null , "Водитлеьское удостоверение удалено", "Успешно", JOptionPane.INFORMATION_MESSAGE);
                             }
@@ -134,17 +131,16 @@ public class Licences extends JFrame{
             res = DB.select(query);
 
             // Обнуляем данные в массиве и модели таблицы
-            licences.clear();
             tableModel = new DefaultTableModel();
             table.setModel(tableModel);
 
             // Добавляем в модель столбцы
+            tableModel.addColumn("ID");
             tableModel.addColumn("ФИО");
             tableModel.addColumn("№ВУ");
             tableModel.addColumn("Годен до");
 
             while(res.next()) {
-
                 // Записываем в класс данные из БД
                 Licence el = new Licence(res.getInt("id"),
                         res.getString("name"),
@@ -155,8 +151,7 @@ public class Licences extends JFrame{
                         res.getString("expired_date"));
 
                 // Добавляем данные в модель и в массив с данными
-                licences.add(el);
-                tableModel.addRow(new String[]{el.getFullName(), el.getNumber(), el.getExpiredDate().toString()});
+                tableModel.addRow(new String[]{String.valueOf(el.getId()), el.getFullName(), el.getNumber(), el.getExpiredDate().toString()});
             }
         } catch (Exception ex) {
             System.out.println(ex);

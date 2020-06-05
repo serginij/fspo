@@ -32,6 +32,7 @@ public class DB {
             String useUnicode = "true";
             String encoding = "utf-8";
 
+            // Установка параметров подключения
             Properties p = new Properties();
             p.setProperty("user", user);
             p.setProperty("password", password);
