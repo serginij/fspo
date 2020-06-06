@@ -36,7 +36,6 @@ public class DB {
             Properties p = new Properties();
             p.setProperty("user", user);
             p.setProperty("password", password);
-            p.setProperty("user", user);
             p.setProperty("useUnicode", useUnicode);
             p.setProperty("characterEncoding", encoding);
 
