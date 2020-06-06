@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.time.Duration;
@@ -15,7 +13,6 @@ import java.time.LocalDateTime;
 */
 
 public class Auth  extends JFrame{
-
     private JButton ok;
     private JButton cancel;
     private JTextField loginField;
@@ -25,6 +22,11 @@ public class Auth  extends JFrame{
     protected Timer tm = null;
     protected int sec = 30;
     protected int loginCount = 0;
+
+    /* Для авторизации необходимо ввести данные:
+        Логин - admin
+        Пароль - admin
+     */
 
     Auth() {
         setContentPane(auth);
@@ -142,10 +144,10 @@ public class Auth  extends JFrame{
         tm.start();
     }
 
-    public static void main(String[] args) {
+    public static void loadFont() {
         try {
             Font font = Font.createFont(Font.TRUETYPE_FONT,
-                    new FileInputStream(new File("/Users/sergey/fspo/demo/fonts/Bellota-Regular.ttf")))
+                    Auth.class.getResourceAsStream("fonts/Bellota-Regular.ttf"))
                     .deriveFont(Font.PLAIN, 14);
 
             UIManager.put("TextField.font", font);
@@ -159,6 +161,11 @@ public class Auth  extends JFrame{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        loadFont();
+
         Auth app = new Auth();
         app.pack();
         app.setVisible(true);
