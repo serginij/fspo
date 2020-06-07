@@ -2,9 +2,15 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.Properties;
 
+/*
+    Разработал: Сергей Котлицкий
+    github: https://github.com/serginij
+    email: kotlizkiy@gmail.com
+*/
+
 public class DB {
     protected static Connection db = null;
-
+    // Функция подключения к бд, записывает в переменную db подключение к БД
     public static void connect() {
         try {
             db = getConnection();
@@ -15,7 +21,7 @@ public class DB {
             System.out.println(ex);
         }
     }
-
+    // Функция получения подключения
     public static Connection getConnection() {
         String user = "root";
         String password = "12345678";
@@ -39,7 +45,7 @@ public class DB {
             return null;
         }
     }
-
+    // Функция для запросов select
     public static ResultSet select(String query) {
         try {
             Statement st = db.createStatement();
@@ -50,7 +56,7 @@ public class DB {
             return null;
         }
     }
-
+    // Функция для запросов insert. Возвращает сгенерированные ключи (id)
     public static ResultSet insert(String query) {
         try {
             ResultSet res;
@@ -66,7 +72,7 @@ public class DB {
             return null;
         }
     }
-
+    // Функция для запросов update, возвращает флаг успешности операции
     public static boolean update(String query) {
         try {
             Statement st = db.createStatement();
@@ -78,7 +84,7 @@ public class DB {
             return false;
         }
     }
-
+    // Функция для запросов delete, возвращает флаг успешности операции
     public static boolean delete(String query) {
         try {
             Statement st = db.createStatement();
