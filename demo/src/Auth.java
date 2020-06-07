@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
     email: kotlizkiy@gmail.com
 */
 
-public class Auth  extends JFrame{
+public class Auth extends JFrame{
     private JButton ok;
     private JButton cancel;
     private JTextField loginField;
@@ -34,7 +34,8 @@ public class Auth  extends JFrame{
         setPreferredSize(new Dimension(500, 400));
         setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - WIDTH /2,
                 (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - HEIGHT / 2);
-        setIconImage(Toolkit.getDefaultToolkit().getImage("images/car.png"));
+
+        setIconImage(Toolkit.getDefaultToolkit().createImage(this.getClass().getResource("images/car.png")));
 
         time.setVisible(false);
 

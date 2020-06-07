@@ -28,7 +28,8 @@ public class Licences extends JFrame{
         setPreferredSize(new Dimension(500, 400));
         setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - WIDTH /2,
                 (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - HEIGHT / 2);
-        setIconImage(Toolkit.getDefaultToolkit().getImage("images/car.png"));
+
+        setIconImage(Toolkit.getDefaultToolkit().createImage(this.getClass().getResource("images/car.png")));
 
         // Инициализируем модели и массив данных
         comboModel = new DefaultComboBoxModel();

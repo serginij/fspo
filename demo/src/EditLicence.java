@@ -28,7 +28,7 @@ public class EditLicence extends JFrame{
         setTitle("Создание ВУ");
         setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - WIDTH /2,
                 (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - HEIGHT / 2);
-        setIconImage(Toolkit.getDefaultToolkit().getImage("images/car.png"));
+        setIconImage(Toolkit.getDefaultToolkit().createImage(this.getClass().getResource("images/car.png")));
 
         Licence licence = new Licence();
 
@@ -84,7 +84,10 @@ public class EditLicence extends JFrame{
                             licence.setExpiredDate(expiredDate);
 
                             // Добавляем данные в массив с данными
-                            tableModel.addRow(new String[]{licence.getFullName(), licence.getNumber(), licence.getExpiredDate().toString()});
+                            tableModel.addRow(new String[]{String.valueOf(licence.getId()),
+                                    licence.getFullName(),
+                                    licence.getNumber(),
+                                    licence.getExpiredDate().toString()});
 
                             System.out.println(id);
                         } catch (Exception ex) {
