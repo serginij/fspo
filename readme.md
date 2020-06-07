@@ -18,3 +18,7 @@ Web programm modules ( js + php )
 ### java
 
 Java Swing sample projects
+
+- `java/` - other samples
+- `auth/` - demo project v1
+- `demo/` - demo project v2
