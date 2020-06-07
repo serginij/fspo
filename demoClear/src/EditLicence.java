@@ -28,6 +28,8 @@ public class EditLicence extends JFrame{
         setContentPane(main);
         setTitle("Создание ВУ");
         setPreferredSize(new Dimension(600, 500));
+        setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - 300,
+                (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - 250);
 
         Licence licence = new Licence();
 
@@ -132,6 +134,8 @@ public class EditLicence extends JFrame{
         setContentPane(main);
         setTitle("Редактирование ВУ");
         setPreferredSize(new Dimension(600, 500));
+        setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - 300,
+                (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - 250);
 
         try {
             ResultSet row = DB.select("select * from driver_licence where id=" + tableModel.getValueAt(index, 0));

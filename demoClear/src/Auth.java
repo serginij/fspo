@@ -34,6 +34,9 @@ public class Auth extends JFrame {
         setTitle("Авторизация");
         setPreferredSize(new Dimension(600, 500));
 
+        setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - 300,
+                (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - 250);
+
         time.setVisible(false);
 
         // Подключение к БД
