@@ -23,6 +23,12 @@ public class Auth extends JFrame {
     protected int sec=60;
     protected int loginCount = 0;
 
+    /*
+        Данные для авторизации
+        Логин: admin
+        Пароль: admin
+    */
+
     Auth() {
         setContentPane(auth);
         setTitle("Авторизация");
@@ -133,7 +139,27 @@ public class Auth extends JFrame {
         tm.start();
     }
 
+    public static void connectFont () {
+        try {
+            Font font = Font.createFont(
+                    Font.TRUETYPE_FONT,
+                    Auth.class.getResourceAsStream("fonts/Bellota-Regular.ttf")
+            ).deriveFont(Font.PLAIN, 14);
+
+            UIManager.put("Label.font", font);
+            UIManager.put("TextField.font", font);
+            UIManager.put("Button.font", font);
+            UIManager.put("Label.font", font);
+            UIManager.put("ComboBox.font", font);
+            UIManager.put("Table.font", font);
+            UIManager.put("TableHeader.font", font);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+
     public static void main(String[] args) {
+        connectFont();
         Auth app = new Auth();
         app.pack();
         app.setVisible(true);
