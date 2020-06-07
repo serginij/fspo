@@ -5,7 +5,7 @@ import java.time.LocalDate;
     email: kotlizkiy@gmail.com
 */
 
-public class Helpers {
+public class  Helpers {
     public static boolean checkText(String text) {
         return text.matches("[a-zA-Zа-яА-Я]+");
     }
