@@ -6,6 +6,12 @@ import java.sql.ResultSet;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/*
+    Разработал: Сергей Котлицкий
+    github: https://github.com/serginij
+    email: kotlizkiy@gmail.com
+*/
+
 public class Auth extends JFrame {
     private JButton loginButton;
     private JButton exitButton;

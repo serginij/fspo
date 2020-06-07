@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.Properties;
 
+/*
+    Разработал: Сергей Котлицкий
+    github: https://github.com/serginij
+    email: kotlizkiy@gmail.com
+*/
+
 public class DB {
     protected static Connection db = null;
 

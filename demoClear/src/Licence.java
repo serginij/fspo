@@ -3,6 +3,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+/*
+    Разработал: Сергей Котлицкий
+    github: https://github.com/serginij
+    email: kotlizkiy@gmail.com
+*/
+
 public class Licence {
     protected int id;
     protected String name, surname, fatherName, number;

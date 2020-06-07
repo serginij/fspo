@@ -5,6 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 
+/*
+    Разработал: Сергей Котлицкий
+    github: https://github.com/serginij
+    email: kotlizkiy@gmail.com
+*/
+
 public class Licences extends JFrame{
     private JComboBox comboBox;
     private JTextField searchField;

@@ -1,5 +1,11 @@
 import java.time.LocalDate;
 
+/*
+    Разработал: Сергей Котлицкий
+    github: https://github.com/serginij
+    email: kotlizkiy@gmail.com
+*/
+
 public class Helpers {
     public static boolean checkTextCyrillic(String text) {
         return text.matches("^[а-яА-Я]+$");
