@@ -28,17 +28,23 @@ public class Licences extends JFrame{
         setTitle("Водительские удостоверения");
         setPreferredSize(new Dimension(600, 500));
 
+        // Устанавливаем положение окна по центру экрана
         setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - 300,
                 (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - 250);
 
         setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("images/car.png")));
 
+        // Присваиваем переменные к соответствущие моделям
         comboBoxModel = new DefaultComboBoxModel();
         tableModel = new DefaultTableModel();
 
+        // Связываем модели
         comboBox.setModel(comboBoxModel);
+        comboBoxModel.addElement("Водительские удостоверения");
 
         table.setModel(tableModel);
+
+        // Добавляем столбцы в таблицу
         tableModel.addColumn("ID");
         tableModel.addColumn("ФИО");
         tableModel.addColumn("№ ВУ");
@@ -51,6 +57,7 @@ public class Licences extends JFrame{
             public void actionPerformed(ActionEvent actionEvent) {
                 String text = searchField.getText().trim();
 
+                // Обновляем таблицу, осуществляя поиск по ФИО и №ВУ
                 getLicences("select * from driver_licence where name like ('%"+ text
                         +"%') or surname like ('%"+text
                         +"%') or father_name like ('%"+ text
@@ -74,6 +81,8 @@ public class Licences extends JFrame{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 int index = table.getSelectedRow();
+
+                // Проверяем, выбрал ли пользователь строку для редактирования
                 if(index == -1) JOptionPane.showMessageDialog(null,
                         "Необходимо выбрать строку для редактирования", "Внимание", JOptionPane.INFORMATION_MESSAGE);
                 else {
@@ -89,6 +98,8 @@ public class Licences extends JFrame{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 int idx = table.getSelectedRow();
+
+                // Проверяем, выбрал ли пользователь строку для удаления
                 if(idx == -1) JOptionPane.showMessageDialog(null,
                         "Необходимо выбрать строку для удаления", "Внимание", JOptionPane.INFORMATION_MESSAGE);
                 else {
@@ -115,7 +126,10 @@ public class Licences extends JFrame{
         try {
             ResultSet res =  DB.select(query);
 
+            //Обнуляем таблицу
             tableModel = new DefaultTableModel();
+
+            // Добавляем столбцы в таблицу
             tableModel.addColumn("ID");
             tableModel.addColumn("ФИО");
             tableModel.addColumn("№ ВУ");
@@ -123,9 +137,11 @@ public class Licences extends JFrame{
 
             table.setModel(tableModel);
 
+            // Достаем данные из БД
             while(res.next()) {
                 Licence row = new Licence(res);
 
+                // Записываем в модель таблицы
                 tableModel.addRow(new String[]{String.valueOf(row.getId()), row.getFullName(), row.getNumber(), row.getExpiredDate().toString()});
             }
         } catch (Exception ex) {

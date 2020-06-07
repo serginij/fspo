@@ -24,16 +24,19 @@ public class EditLicence extends JFrame{
     private JTextField expiredDateField;
     private JPanel main;
 
+    // Конструктор для создания ВУ
     EditLicence(DefaultTableModel tableModel) {
         setContentPane(main);
         setTitle("Создание ВУ");
         setPreferredSize(new Dimension(600, 500));
 
+        // Устанавливаем окно по центру экрана
         setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - 300,
                 (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - 250);
 
         setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("images/car.png")));
 
+        // Создаем экземпляр класса ВУ
         Licence licence = new Licence();
 
         cancel.addActionListener(new ActionListener() {
@@ -46,6 +49,7 @@ public class EditLicence extends JFrame{
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                // Получаем значения из полей ввода
                 String name = nameField.getText(),
                         surname = surnameField.getText(),
                         fatherName = fatherNameField.getText(),
@@ -53,8 +57,11 @@ public class EditLicence extends JFrame{
                         birthday = birthdayField.getText(),
                         expiredDate = expiredDateField.getText();
 
+                // Проверяем пустоту полей ввода
                 if(!checkEmpty()) {
+                    // Проверяем правильность ввода данных
                     if(checkValid()) {
+                        // Если успешно, то формируем запрос на вставку данных
                         String query = "insert into driver_licence (name, surname, father_name, number, birthday, expired_date) values (" +
                                 "'" + name + "'," + "'"+ surname +"'," + "'"+fatherName+"'," + "'"+ number +"'," + "'"+ birthday +"'," + "'"+ expiredDate +"'" +
                                 ")";
@@ -64,6 +71,7 @@ public class EditLicence extends JFrame{
                         try {
                             int id = res.getInt(1);
 
+                            // Вставляем данные в ВУ
                             licence.setId(id);
                             licence.setName(name);
                             licence.setSurname(surname);
@@ -72,6 +80,7 @@ public class EditLicence extends JFrame{
                             licence.setBirthday(LocalDate.parse(birthday));
                             licence.setExpiredDate(LocalDate.parse(expiredDate));
 
+                            // Добавляем ВУ в таблицу
                             tableModel.addRow(new String[]{String.valueOf(id),
                                     licence.getFullName(),
                                     licence.getNumber(),
@@ -89,6 +98,7 @@ public class EditLicence extends JFrame{
         });
     }
 
+    // Функция проверки на пустоту полей ввода
     public boolean checkEmpty () {
         String name = nameField.getText(),
                 surname = surnameField.getText(),
@@ -106,6 +116,7 @@ public class EditLicence extends JFrame{
         } else return false;
     }
 
+    // Функция проверки правильности ввода данных
     public boolean checkValid () {
         String name = nameField.getText(),
                 surname = surnameField.getText(),
@@ -123,7 +134,10 @@ public class EditLicence extends JFrame{
                 !Helpers.checkLengthStrict(number, 8) ||
                 !Helpers.checkLength(name, 45) ||
                 !Helpers.checkLength(surname, 45)) {
-            JOptionPane.showMessageDialog(null, "Данные введены в неверном формате." +
+
+            // Если формат неправильный, выдаем сообщение
+            JOptionPane.showMessageDialog(null,
+                    "Данные введены в неверном формате." +
                     "\nФормат даты - гггг-мм-дд" +
                     "\nНомер ВУ - 8 символов, цифры и латинские буквы" +
                     "\nФамилия, Имя - обязательные, кирилица" +
@@ -133,19 +147,24 @@ public class EditLicence extends JFrame{
         } else return true;
     }
 
+    // Конструктор для редактирования ВУ
     EditLicence(DefaultTableModel tableModel, int index) {
         setContentPane(main);
         setTitle("Редактирование ВУ");
         setPreferredSize(new Dimension(600, 500));
+
+        // Устанавливаем окно по центру экрана
         setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - 300,
                 (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - 250);
 
         try {
+            // Получаем данные о ВУ из БД
             ResultSet row = DB.select("select * from driver_licence where id=" + tableModel.getValueAt(index, 0));
 
             row.next();
             Licence licence = new Licence(row);
 
+            // Заполняем поля ввода значениями из БД
             surnameField.setText(licence.getSurname());
             nameField.setText(licence.getName());
             fatherNameField.setText(licence.getFatherName());
@@ -163,6 +182,7 @@ public class EditLicence extends JFrame{
             save.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
+                    // Забираем значения в переменные из полей ввода
                     String name = nameField.getText(),
                             surname = surnameField.getText(),
                             fatherName = fatherNameField.getText(),
@@ -170,8 +190,11 @@ public class EditLicence extends JFrame{
                             birthday = birthdayField.getText(),
                             expiredDate = expiredDateField.getText();
 
+                    // Проверка на пустоту полей ввода
                     if(!checkEmpty()) {
+                        // Проверка на правильность введения данных
                         if(checkValid()) {
+                            // Если успешно, то формируем запрос на обновление данных
                             String query = "update driver_licence " +
                                     "set name='" + name +
                                     "', surname='"+ surname +
@@ -181,9 +204,11 @@ public class EditLicence extends JFrame{
                                     "', expired_date='"+ expiredDate + "'" +
                                     "where id=" + licence.getId();
 
+                            // Выполняем обновление данных
                             boolean res = DB.update(query);
 
                             if(res) {
+                                // Обновляем данные в классе
                                 licence.setName(name);
                                 licence.setSurname(surname);
                                 licence.setNumber(number);
@@ -191,6 +216,7 @@ public class EditLicence extends JFrame{
                                 licence.setBirthday(LocalDate.parse(birthday));
                                 licence.setExpiredDate(LocalDate.parse(expiredDate));
 
+                                // Обновляем данные в таблице
                                 tableModel.setValueAt(licence.getFullName(), index, 1);
                                 tableModel.setValueAt(licence.getNumber(), index, 2);
                                 tableModel.setValueAt(licence.getExpiredDate().toString(), index, 3);

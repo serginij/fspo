@@ -14,9 +14,13 @@ public class Licence {
     protected String name, surname, fatherName, number;
     protected LocalDate birthday, expiredDate;
 
+    // Пустой конструктор для дальнейшего использования сеттеров
     Licence() {
     }
 
+    /* Конструктор, который принимает ResultSet.
+       В поля класса записываются соответствующие значения из ResultSet
+    */
     Licence(ResultSet data) {
         try {
             id = data.getInt("id");
@@ -33,7 +37,7 @@ public class Licence {
         }
     }
 
-
+    // Функции - сеттеры
     public void setId(int id){this.id = id;}
     public void setName(String name){this.name = name;}
     public void setSurname(String surname){this.surname = surname;}
@@ -42,6 +46,7 @@ public class Licence {
     public void setBirthday(LocalDate birthday){this.birthday = birthday;}
     public void setExpiredDate(LocalDate expiredDate){this.expiredDate = expiredDate;}
 
+    // Функции - геттеры
     public int getId(){return id;}
     public String getName(){return name;}
     public String getSurname(){return surname;}
@@ -50,6 +55,7 @@ public class Licence {
     public LocalDate getBirthday(){return birthday;}
     public LocalDate getExpiredDate(){return expiredDate;}
 
+    // Функция для получения ФИО
     public String getFullName () {
         if(fatherName.equals("") || fatherName == null) {
             return surname + " " + name.charAt(0) + ".";
