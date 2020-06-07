@@ -28,8 +28,11 @@ public class EditLicence extends JFrame{
         setContentPane(main);
         setTitle("Создание ВУ");
         setPreferredSize(new Dimension(600, 500));
+
         setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - 300,
                 (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - 250);
+
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("images/car.png")));
 
         Licence licence = new Licence();
 

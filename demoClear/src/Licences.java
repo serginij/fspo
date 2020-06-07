@@ -27,8 +27,11 @@ public class Licences extends JFrame{
         setContentPane(main);
         setTitle("Водительские удостоверения");
         setPreferredSize(new Dimension(600, 500));
+
         setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - 300,
                 (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - 250);
+
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("images/car.png")));
 
         comboBoxModel = new DefaultComboBoxModel();
         tableModel = new DefaultTableModel();
