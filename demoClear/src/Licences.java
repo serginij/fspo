@@ -1,4 +1,125 @@
-package PACKAGE_NAME;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
-public class Licences {
+public class Licences extends JFrame{
+    private JComboBox comboBox;
+    private JTextField searchField;
+    private JButton searchButton;
+    private JButton editButton;
+    private JButton createButton;
+    private JButton deleteButton;
+    private JTable table;
+    private JPanel main;
+    protected DefaultComboBoxModel comboBoxModel;
+    protected  DefaultTableModel tableModel;
+
+    Licences() {
+        setContentPane(main);
+        setTitle("Водительские удостоверения");
+        setPreferredSize(new Dimension(600, 500));
+
+        comboBoxModel = new DefaultComboBoxModel();
+        tableModel = new DefaultTableModel();
+
+        comboBox.setModel(comboBoxModel);
+
+        table.setModel(tableModel);
+        tableModel.addColumn("ID");
+        tableModel.addColumn("ФИО");
+        tableModel.addColumn("№ ВУ");
+        tableModel.addColumn("До");
+
+        getLicences("select * from driver_licence");
+
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String text = searchField.getText().trim();
+
+                getLicences("select * from driver_licence where name like ('%"+ text
+                        +"%') or surname like ('%"+text
+                        +"%') or father_name like ('%"+ text
+                        +"%') or number like ('%"+ text +"%')");
+
+                if(text.equals("")) JOptionPane.showMessageDialog(null,
+                        "Необходимо ввести текст для поиска", "Внимание", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        createButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                EditLicence add = new EditLicence(tableModel);
+                add.setVisible(true);
+                add.pack();
+            }
+        });
+
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                int index = table.getSelectedRow();
+                if(index == -1) JOptionPane.showMessageDialog(null,
+                        "Необходимо выбрать строку для редактирования", "Внимание", JOptionPane.INFORMATION_MESSAGE);
+                else {
+                    EditLicence edit = new EditLicence(tableModel, index);
+                    edit.pack();
+                    edit.setVisible(true);
+                }
+
+            }
+        });
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                int idx = table.getSelectedRow();
+                if(idx == -1) JOptionPane.showMessageDialog(null,
+                        "Необходимо выбрать строку для удаления", "Внимание", JOptionPane.INFORMATION_MESSAGE);
+                else {
+                    int res = JOptionPane.showConfirmDialog(null,
+                            "Вы действительно хотите удалить данные?", "Внимание",JOptionPane.OK_CANCEL_OPTION);
+
+                    if(res == 0) {
+                        String query = "delete from driver_licence where id = "+ tableModel.getValueAt(idx, 0);
+                        boolean result = DB.delete(query);
+
+                        if(result) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Выбранные данные удалены", "Успешно", JOptionPane.INFORMATION_MESSAGE);
+                            tableModel.removeRow(idx);
+                        }
+                    }
+                }
+            }
+        });
+
+    }
+
+    protected void getLicences (String query) {
+        try {
+            ResultSet res =  DB.select(query);
+
+            tableModel = new DefaultTableModel();
+            tableModel.addColumn("ID");
+            tableModel.addColumn("ФИО");
+            tableModel.addColumn("№ ВУ");
+            tableModel.addColumn("До");
+
+            table.setModel(tableModel);
+
+            while(res.next()) {
+                Licence row = new Licence(res);
+
+                tableModel.addRow(new String[]{String.valueOf(row.getId()), row.getFullName(), row.getNumber(), row.getExpiredDate().toString()});
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Произошла ошибка при получении данных", "Ошибка", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }
